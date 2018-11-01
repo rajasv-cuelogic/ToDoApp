@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8">
+        <title>TO DO App </title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+        
+        <script src="js/common.js"></script>
+        <link rel="stylesheet" href="css/todoApp.css">
+    </head>
+    <body>
+        <div id="header"></div>
+        <h1> My Profile </h1>
+        <form class="form-horizontal" id="registration" method="post" data-toggle="validator" role="form">
+            <div class="form-group col-5">
+                <label for="email" >Email</label>
+                <label class="form-control" id='email'></label>
+            </div>
+            <div class="form-group col-5">
+                <label for="firstName">First Name<sup class='red'>*</sup></label>
+                <input type="text" class="form-control" id="firstName" maxlength="50" name="firstName" required>
+                <div class="help-block with-errors" style="color: red; font-size: 11px; padding: 3px 10px;"></div>
+            </div>
+            <div class="form-group col-5">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" maxlength="50" name="lastName">
+            </div>
+            <div class="form-group col-5">
+                <label for="gender">Gender</label>
+                <div>
+                    <label class="radio-inline col-3"><input type="radio" name="gender" value="m" id='genderMale'>Male</label>
+                    <label class="radio-inline col-3"><input type="radio" name="gender" value="f" id='genderFemale'>Female</label>
+                </div>
+            </div>
+            <div class="form-group col-5">
+                <label for="address">Address</label>
+                <textarea class="form-control" rows="3" id="address" name="address" maxlength="150"></textarea>
+            </div>
+
+            <div>
+                <div class="form-group col-5 leftFloater">
+                    <label for="profileImage">Profile Image</label>
+                    <input type="file" class="form-control" id="profileImage" name="profileImage" accept="image/*">
+                </div>
+                    <img id="preview" class="preview" >
+            </div>
+            <div class="form-group col-5" style="clear: both;">
+                <button type="button" class="btn btn-success" onclick="updateProfile()">Update</button>
+                <a href="login.html">Cancel</a>
+            </div>
+        </form>
+    </body>
+</html>
+<script>
+	$(document).ready(function () {
+		if (!isLoggedInUser()) {
+			window.location.replace	('login.html');		
+		}
+
+        var userIdentity = JSON.parse(getCookie('userIdentity'));
+        $("#email").html(userIdentity.email);
+        $("#firstName").val(userIdentity.firstName);
+        $("#lastName").val(userIdentity.lastName);
+        $("#address").val(userIdentity.address);
+        if (userIdentity.gender == 'm') {
+            $('#genderMale').attr('checked', true);
+        }
+        if (userIdentity.gender == 'f') {
+            $('#genderFemale').attr('checked', true);
+        }
+        var users = JSON.parse(window.localStorage.getItem('users'));
+        currentUser = users[userIdentity.email] 
+        var imgSrc = currentUser.profileImg; 
+        $("#preview").attr('src', imgSrc);
+
+	});
+
+    function updateProfile() {
+        if ($('#firstName').val() != '') {
+            currentUser.firstName = $('#firstName').val();
+            currentUser.lastName = $('#lastName').val();
+            currentUser.address = $('#address').val();
+            currentUser.gender = $('input[name=gender]:checked').val();
+            if ($("#profileImage")[0].files.length > 0) { 
+                currentUser.profileImg = (typeof reader !== 'undefined') ? reader.result : null;
+            }
+            var users = JSON.parse(window.localStorage.getItem('users'));
+            users[currentUser.email] = currentUser;
+            window.localStorage.setItem('users', JSON.stringify(users));
+            delete currentUser.profileImg;
+            setCookie('userIdentity', JSON.stringify(currentUser));
+            alert ("Profile updated successfully.");
+            window.location.replace ('listing.html');
+        }
+        return false;
+    }
+</script>

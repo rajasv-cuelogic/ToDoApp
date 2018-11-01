@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="utf-8">
+        <title>TO DO App </title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+
+        <script src="js/common.js"></script>
+        <link rel="stylesheet" href="css/todoApp.css">
+    </head>
+    <body>
+        <div id="header"></div>
+        <h1> Listing </h1>
+    </body>
+</html>
+<script>
+	$(document).ready(function () {
+		if (!isLoggedInUser()) {
+			window.location.replace	('login.html');		
+		}
+	});
+</script>

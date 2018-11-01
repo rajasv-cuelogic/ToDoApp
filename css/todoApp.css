@@ -1,0 +1,62 @@
+body {
+	font-family: sans-serif;
+}
+
+h1 {
+	margin: 30px;
+	font-size: 30px;
+	font-family: sans-serif;
+}
+
+a {
+	cursor: pointer;
+}
+
+input[type="checkbox"], input[type="radio"] {
+	margin-right: 3px;
+	vertical-align: middle;
+} 
+
+/*
+div.inputError  {
+	font-size: 11px !important;
+	color: red !important;
+	padding: 3px 10px !important;
+}*/
+
+./*help-block {
+    color: #a94442;
+}
+
+.select-class{
+    border: solid 1px #a94442;
+
+}*/
+
+ul.list-unstyled > li {
+	font-size: 11px !important;
+	color: red !important;
+	padding: 3px 10px !important;
+}
+
+.leftFloater {
+	float: left;
+}
+
+.preview {
+	max-height: 100px;
+	max-width: 100px;
+	margin: 35px 20px;
+}
+
+.headWrapper {
+	background: #ecf;
+	padding: 10px 20px;
+	border-radius: 5px;
+	text-align: right;
+	font-size: 13px;
+}
+
+.red {
+	color: red;
+}
